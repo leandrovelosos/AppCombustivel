@@ -3,13 +3,34 @@ import { View, Text, StyleSheet, SafeAreaView, TextInput, Image, TouchableOpacit
 
 export default function App() {
   const [modalVsible, setModalVisible] = useState(false);
+  const [alcool, setAlcool] = useState('');
+  const [gasolina, setGasolina] = useState('');
+  const [resultado, setResultado] = useState('');
 
   function resposta() {
-    setModalVisible(true)
+
+    const precoAlcool = parseFloat(alcool);
+    const precoGasolina = parseFloat(gasolina);
+
+    if (!isNaN(precoAlcool) && !isNaN(precoGasolina)) {
+
+      const resultado = (precoAlcool / precoGasolina) < 0.7 ? "Álcool" : "Gasolina";
+      setResultado(resultado);
+      setModalVisible(true)
+
+    } else {
+
+      alert('Erro, Insira valores válidos')
+
+    }
+
+
   }
 
-  function voltar(){
-    setModalVisible(false)
+  function voltar() {
+    setModalVisible(false);
+    setGasolina('');
+    setAlcool('');
   }
   return (
     <SafeAreaView style={styles.container} >
@@ -21,24 +42,37 @@ export default function App() {
       </View>
 
       <View style={styles.areaTextInput}>
+
         <Text style={styles.textoInput}>Ácool (preço por litro):</Text>
+
         <TextInput style={styles.input}
           keyboardType="numeric"
+          value={alcool}
+          onChangeText={setAlcool}
         />
+
       </View>
 
       <View style={styles.areaTextInput}>
+
         <Text style={styles.textoInput}>Gasolina (preço por litro):</Text>
+
         <TextInput style={styles.input}
           keyboardType="numeric"
+          value={gasolina}
+          onChangeText={setGasolina}
         />
+
       </View>
+
       <View style={styles.areaBtnCalcular}>
+
         <TouchableOpacity style={styles.btnCalcular}
-          onPress={() => resposta()}
+          onPress={resposta}
         >
           <Text style={styles.txtCalcular} >Calcular</Text>
         </TouchableOpacity>
+
       </View>
 
       <Modal
@@ -53,21 +87,21 @@ export default function App() {
 
             <Image style={styles.logo} source={require('./src/img/gas.png')} />
 
-            <Text style={styles.textSubTituloModal}>Compensa usar</Text>
-
+            <Text style={styles.textSubTituloModal}>Compensa usar {resultado}</Text>
+            
           </View>
 
           <View style={styles.resultado}>
 
             <Text style={styles.resultadoTitulo}>Com os preços:</Text>
-            <Text style={styles.resultadoValor}>Ácool: </Text>
-            <Text style={styles.resultadoValor}>Gasolina: </Text>
+            <Text style={styles.resultadoValor}>Ácool: R$ {alcool}</Text>
+            <Text style={styles.resultadoValor}>Gasolina: R$ {gasolina}</Text>
 
           </View>
 
           <View style={styles.btnArea}>
             <TouchableOpacity style={styles.btnCalcularNovamente}
-            onPressIn={()=>{voltar()}}
+              onPressIn={voltar}
             >
               <Text style={styles.btnTxt}>
                 Calcular novamente
