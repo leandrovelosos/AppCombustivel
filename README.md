@@ -25,6 +25,7 @@ O aplicativo permite que o usuário insira os preços por litro de álcool e gas
 4. Para realizar um novo cálculo, pressione o botão "Calcular novamente" na modal.
 
 ## Tela do app
-
-<img src="./src/imgApp/home.png" alt="app" width="256px" height="520px" style="margin-right:50 ">
-<img src="./src/imgApp/modal.png" alt="app" width="256px" height="520px">
+<body style="display: flex; justify-content: center; align-items: center;">
+  <img src="./src/imgApp/home.png" alt="app" width="256px" height="520px" style="margin-right: 50px;">
+  <img src="./src/imgApp/modal.png" alt="app" width="256px" height="520px;">
+</body>
