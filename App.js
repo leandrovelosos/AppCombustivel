@@ -1,10 +1,15 @@
-import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, TextInput, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, SafeAreaView, TextInput, Image, TouchableOpacity, Modal } from "react-native";
 
 export default function App() {
+  const [modalVsible, setModalVisible] = useState(false);
 
-  function resposta(){
-    
+  function resposta() {
+    setModalVisible(true)
+  }
+
+  function voltar(){
+    setModalVisible(false)
   }
   return (
     <SafeAreaView style={styles.container} >
@@ -30,18 +35,58 @@ export default function App() {
       </View>
       <View style={styles.areaBtnCalcular}>
         <TouchableOpacity style={styles.btnCalcular}
-         onPress={()=> resposta()}
+          onPress={() => resposta()}
         >
           <Text style={styles.txtCalcular} >Calcular</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal
+        transparent={true}
+        style={styles.modal}
+        visible={modalVsible}
+        animationType="slide">
+
+        <View style={styles.containeroModal}>
+
+          <View style={styles.containerTituloModal}>
+
+            <Image style={styles.logo} source={require('./src/img/gas.png')} />
+
+            <Text style={styles.textSubTituloModal}>Compensa usar</Text>
+
+          </View>
+
+          <View style={styles.resultado}>
+
+            <Text style={styles.resultadoTitulo}>Com os preços:</Text>
+            <Text style={styles.resultadoValor}>Ácool: </Text>
+            <Text style={styles.resultadoValor}>Gasolina: </Text>
+
+          </View>
+
+          <View style={styles.btnArea}>
+            <TouchableOpacity style={styles.btnCalcularNovamente}
+            onPressIn={()=>{voltar()}}
+            >
+              <Text style={styles.btnTxt}>
+                Calcular novamente
+              </Text>
+            </TouchableOpacity>
+
+          </View>
+
+        </View>
+
+      </Modal>
+
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#121212',
+    backgroundColor: '#212121',
     flex: 1
   },
   containerTitulo: {
@@ -98,5 +143,66 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 25,
     fontWeight: 'bold'
+  },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textSubTituloModal: {
+    color: '#30EF5A',
+    fontSize: 35,
+    fontWeight: 'bold',
+  },
+  containeroModal: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: '#212121',
+    width: '100%',
+    height: '100%',
+  },
+  resultado: {
+    alignItems: "center",
+    justifyContent: "center",
+
+  },
+  resultadoTitulo: {
+    color: '#FFF',
+    fontSize: 28,
+    fontWeight: "bold",
+    marginTop: "5%",
+
+  },
+  resultadoValor: {
+    color: '#FFF',
+    fontSize: 25,
+    marginTop: "2%"
+  },
+  btnArea: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  btnCalcularNovamente: {
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#EF4130',
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 5,
+    paddingTop: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    width: '80%',
+    marginTop: "5%"
+  },
+  btnTxt: {
+    color: '#EF4130',
+    fontSize: 25
+  },
+  containerTituloModal: {
+    alignItems: "center",
+    justifyContent: "center"
   }
+
+
 })
